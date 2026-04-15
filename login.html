@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Mr | Login{% endblock %}
+{% block content %}
+<main class="shell auth-shell">
+    <section class="auth-card">
+        <div class="section-intro">
+            <p class="eyebrow">Welcome back</p>
+            <h1>Login to continue shopping</h1>
+            <p>Use your username and password to access the Mr storefront and recommendations.</p>
+        </div>
+        <form method="post" class="auth-form">
+            <label>
+                <span>Username</span>
+                <input type="text" name="username" value="{{ form.username or '' }}" required>
+            </label>
+            <label>
+                <span>Password</span>
+                <input type="password" name="password" required>
+            </label>
+            <button class="button primary wide" type="submit">Login</button>
+        </form>
+        <p class="helper-text">New here? <a href="{{ url_for('signup') }}">Create your account</a>.</p>
+    </section>
+</main>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Mr | Checkout{% endblock %}
+{% block content %}
+<main class="shell page-stack">
+    <section class="section-intro">
+        <p class="eyebrow">Payment</p>
+        <h1>Choose a payment method</h1>
+        <p>Choose between GPay, Debit Card, and Cash on Delivery for this project demo.</p>
+    </section>
+
+    <section class="checkout-layout">
+        <div class="summary-card">
+            <h2>Delivery summary</h2>
+            <p>{{ address_preview }}</p>
+            {% for item in items %}
+            <div class="summary-row">
+                <span>{{ item.product_name }} x {{ item.quantity }}</span>
+                <strong>Rs. {{ item.line_total_display }}</strong>
+            </div>
+            {% endfor %}
+            <div class="summary-row total">
+                <span>Payable total</span>
+                <strong>Rs. {{ totals.total_display }}</strong>
+            </div>
+        </div>
+
+        <form method="post" class="payment-card">
+            <label class="payment-option">
+                <input type="radio" name="payment_method" value="GPay" checked>
+                <span>GPay</span>
+            </label>
+            <label class="payment-option">
+                <input type="radio" name="payment_method" value="Debit Card">
+                <span>Debit Card</span>
+            </label>
+            <label class="payment-option">
+                <input type="radio" name="payment_method" value="Cash on Delivery">
+                <span>Cash on Delivery</span>
+            </label>
+            <button class="button primary wide" type="submit">Place order</button>
+        </form>
+    </section>
+</main>
+{% endblock %}

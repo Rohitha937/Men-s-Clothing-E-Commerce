@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mr{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script defer src="{{ url_for('static', filename='app.js') }}"></script>
+</head>
+<body>
+    <div class="site-bg"></div>
+    <header class="topbar">
+        <a class="brandmark" href="{{ url_for('landing') }}">
+            <span class="brandmark-logo">Mr</span>
+        </a>
+        <nav class="topnav">
+            {% if logged_in_user %}
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('favorites') }}">Favourites <span>{{ favorite_count }}</span></a>
+            <a href="{{ url_for('cart') }}">Cart <span>{{ cart_count }}</span></a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+            {% else %}
+            <a href="{{ url_for('landing') }}">Landing</a>
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('signup') }}">Signup</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <section class="flash-stack shell">
+        {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+    </section>
+    {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+</body>
+</html>

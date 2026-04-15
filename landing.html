@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Mr | Welcome{% endblock %}
+{% block content %}
+<main class="shell landing-shell">
+    <section class="landing-hero">
+        <div class="landing-copy">
+            <p class="eyebrow">Mr</p>
+            <h1>Elegant men's fashion, ranked with relevance and fairness.</h1>
+            <p class="lead">Mr is a men's clothing e-commerce demo that blends a polished shopping experience with a trained fair-ranking recommendation model. Local and branded products are surfaced together through a balanced recommendation pipeline.</p>
+            <div class="cta-row">
+                <a class="button primary" href="{{ url_for('login') }}">Login</a>
+                <a class="button secondary" href="{{ url_for('signup') }}">Create account</a>
+            </div>
+        </div>
+        <div class="hero-panel hero-promo-wrap">
+            <div class="promo-card">
+                <img src="{{ url_for('static', filename='landing-striped-shirt.jpg') }}" alt="Featured menswear promo">
+                <div class="promo-save">Mr</div>
+                <div class="promo-copy">
+                    <p>LUXURY | COMFORT | CLASSY</p>
+                    <h2>MAKE SHOPPING EASY</h2>
+                    <span>SHOP NOW</span>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Mr | Signup{% endblock %}
+{% block content %}
+<main class="shell auth-shell">
+    <section class="auth-card wide-card">
+        <div class="section-intro">
+            <p class="eyebrow">Create account</p>
+            <h1>Create your customer account</h1>
+            <p>Complete your profile and address details to access the Mr storefront.</p>
+        </div>
+        <form method="post" class="auth-form grid-form">
+            <label>
+                <span>Username</span>
+                <input type="text" name="username" value="{{ form.username or '' }}" required>
+            </label>
+            <label>
+                <span>Password</span>
+                <input type="password" name="password" required>
+            </label>
+            <label>
+                <span>Email</span>
+                <input type="email" name="email" value="{{ form.email or '' }}" required>
+            </label>
+            <label>
+                <span>Phone number</span>
+                <input type="tel" name="phone" value="{{ form.phone or '' }}" required>
+            </label>
+            <label>
+                <span>Door number</span>
+                <input type="text" name="door_number" value="{{ form.door_number or '' }}" required>
+            </label>
+            <label>
+                <span>Street / Road name</span>
+                <input type="text" name="street_name" value="{{ form.street_name or '' }}" required>
+            </label>
+            <label>
+                <span>Place</span>
+                <input type="text" name="place" value="{{ form.place or '' }}" required>
+            </label>
+            <label>
+                <span>State</span>
+                <input type="text" name="state" value="{{ form.state or '' }}" required>
+            </label>
+            <label class="full-width">
+                <span>Country</span>
+                <input type="text" name="country" value="{{ form.country or '' }}" required>
+            </label>
+            <button class="button primary wide full-width" type="submit">Signup</button>
+        </form>
+        <p class="helper-text">Already registered? <a href="{{ url_for('login') }}">Go to login</a>.</p>
+    </section>
+</main>
+{% endblock %}

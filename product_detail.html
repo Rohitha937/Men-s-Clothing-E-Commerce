@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Mr | {{ product.product_name }}{% endblock %}
+{% block content %}
+<main class="shell page-stack">
+    <section class="detail-layout">
+        <div class="detail-visual">
+            <img src="{{ product.display_image }}" alt="{{ product.product_name }}" onerror="this.onerror=null;this.src='{{ url_for('product_image', product_id=product.product_id) }}';">
+        </div>
+        <div class="detail-copy">
+            <p class="eyebrow">{{ product.brand_name }} | {{ product.brand_badge }}</p>
+            <h1>{{ product.product_name }}</h1>
+            <p class="lead">{{ product.description }}</p>
+
+            <div class="detail-price">
+                <strong>Rs. {{ product.price_display }}</strong>
+                {% if product.discounted %}
+                <span class="strikethrough">Rs. {{ product.original_price_display }}</span>
+                <span class="discount-chip inline">{{ product.discount_percent }}% off</span>
+                {% endif %}
+            </div>
+
+            <div class="detail-grid">
+                <div class="info-box">
+                    <span>Rating</span>
+                    <strong>{{ product.rating_display }} / 5</strong>
+                </div>
+                <div class="info-box">
+                    <span>Reviews</span>
+                    <strong>{{ product.review_count_display }}</strong>
+                </div>
+                <div class="info-box">
+                    <span>Recommendation</span>
+                    <strong>Fair Rank #{{ product.fair_rank }}</strong>
+                </div>
+                <div class="info-box">
+                    <span>Stock</span>
+                    <strong>{{ product.stock_status }}</strong>
+                </div>
+            </div>
+
+            <div class="detail-list">
+                <p><strong>Review highlight:</strong> {{ product.review_text }}</p>
+                <p><strong>Fabric:</strong> {{ product.fabric }}</p>
+                <p><strong>Fit:</strong> {{ product.fit }}</p>
+                <p><strong>Color:</strong> {{ product.color }}</p>
+                <p><strong>Occasion:</strong> {{ product.occasion }}</p>
+                <p><strong>Available sizes:</strong> {{ product.size_list|join(', ') }}</p>
+                <p><strong>Delivery address:</strong> {{ address_preview }}</p>
+            </div>
+
+            <div class="card-actions">
+                <form method="post" action="{{ url_for('add_to_cart', product_id=product.product_id) }}">
+                    <button class="button primary" type="submit">Add to cart</button>
+                </form>
+                <form method="post" action="{{ url_for('toggle_favorite', product_id=product.product_id) }}">
+                    <button class="button ghost" type="submit">{% if product.is_favorite %}Saved in favourites{% else %}Save to favourites{% endif %}</button>
+                </form>
+                <button class="button ghost share-button" type="button" data-share-url="{{ request.url_root.rstrip('/') }}{{ product.share_path }}">Share link</button>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

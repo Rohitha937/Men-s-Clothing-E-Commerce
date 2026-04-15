@@ -1,0 +1,57 @@
+{
+  "demo_user": {
+    "username": "demo_user",
+    "password_hash": "scrypt:32768:8:1$3pb8Col8lQ34pmIB$b8b6567c67b768990d1a9ff45a0099f3b64ec5fe1b80c3af5f588b6e6b6c78019607260c56d92d82f8f2f55fbdef3ab6b9c095c7dd7716164937a5e363f7fa83",
+    "email": "demo@example.com",
+    "phone": "9876543210",
+    "door_number": "12A",
+    "street_name": "Market Road",
+    "place": "Chennai",
+    "state": "Tamil Nadu",
+    "country": "India"
+  },
+  "Karthick": {
+    "username": "Karthick",
+    "password_hash": "scrypt:32768:8:1$Qfhjm0R1Zf62DKxJ$3b3ccf8caa578380f93fd345d797ee1a4433e9b7fda862e8e3832bc02559512144497b1b0f25e8c65b7d7ca242d7eb34428820ede4359991655fb1744aa39232",
+    "email": "karthick09@gmail.com",
+    "phone": "2309586869",
+    "door_number": "12",
+    "street_name": "Saravanampatti",
+    "place": "Coimbatore",
+    "state": "Tamil Nadu",
+    "country": "India"
+  },
+  "verify_user": {
+    "username": "verify_user",
+    "password_hash": "scrypt:32768:8:1$7jVkxbWJY6HXpkHL$2ce51255287c0c6ed9ab901ad0667d19cf1cf7c2a550adae6865dce5665c15304833702e321b60b31cb1573221f08dfe5a716a4955a6c23eddb7a8ef570e5f4f",
+    "email": "verify@example.com",
+    "phone": "9876543210",
+    "door_number": "1",
+    "street_name": "Main Road",
+    "place": "Chennai",
+    "state": "Tamil Nadu",
+    "country": "India"
+  },
+  "Prashanth": {
+    "username": "Prashanth",
+    "password_hash": "scrypt:32768:8:1$C9ozD3kzInYiuPpu$7dc6a419b2791c5a5558e564fc837ee5ae28c0cab7148a9449d625519a20ae957ab79e6a5310ef9fc97c06043de0ed75a8e913f9507c77f5219dd39cd341112d",
+    "email": "prashath@gmail.com",
+    "phone": "9123456780",
+    "door_number": "10",
+    "street_name": "Neikaranpatti",
+    "place": "Salem",
+    "state": "Tamil Nadu",
+    "country": "India"
+  },
+  "review_user": {
+    "username": "review_user",
+    "password_hash": "scrypt:32768:8:1$EWI2RuGN8j0UmX79$dbb34ba57d3d64a2fa4a2b46f2710ca08040da46d01b06a7655b80b7ada7a9456f33b216be06953d30cccaf1d9817e5855774fd7cb640af971fea8f51991f09a",
+    "email": "review@example.com",
+    "phone": "9876543210",
+    "door_number": "22",
+    "street_name": "Review Road",
+    "place": "Chennai",
+    "state": "Tamil Nadu",
+    "country": "India"
+  }
+}

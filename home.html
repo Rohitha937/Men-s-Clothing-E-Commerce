@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block title %}Mr | Home{% endblock %}
+{% block content %}
+<main class="shell page-stack">
+    <section class="dashboard-hero">
+        <div>
+            <p class="eyebrow">Mr storefront</p>
+            <h1>Fair-ranked recommendations for men's fashion</h1>
+            <p class="lead">The trained {{ model }} model ranks products using popularity, content quality, rating, reviews, and fairness-aware brand balancing.</p>
+        </div>
+        <div class="hero-summary">
+            <div class="stat-card">
+                <span>Local products</span>
+                <strong>{{ summary.local_count }}</strong>
+            </div>
+            <div class="stat-card">
+                <span>Branded products</span>
+                <strong>{{ summary.branded_count }}</strong>
+            </div>
+            <div class="stat-card">
+                <span>Low stock highlights</span>
+                <strong>{{ summary.low_stock_count }}</strong>
+            </div>
+        </div>
+    </section>
+    <section class="filter-panel">
+        <form method="get" class="filter-grid">
+            <label class="search-box">
+                <span>Search</span>
+                <input type="text" name="q" value="{{ filters.query }}" placeholder="Search by name, brand, occasion">
+            </label>
+            <label>
+                <span>Category</span>
+                <select name="category">
+                    <option value="">All</option>
+                    {% for category in categories %}
+                    <option value="{{ category }}" {% if filters.category == category %}selected{% endif %}>{{ category|title }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <label>
+                <span>Brand</span>
+                <select name="brand_name">
+                    <option value="">All</option>
+                    {% for brand in brands %}
+                    <option value="{{ brand }}" {% if filters.brand_name == brand %}selected{% endif %}>{{ brand }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <label>
+                <span>Stock</span>
+                <select name="stock">
+                    <option value="">All</option>
+                    <option value="available" {% if filters.stock == 'available' %}selected{% endif %}>Available</option>
+                    <option value="low" {% if filters.stock == 'low' %}selected{% endif %}>Low stock only</option>
+                </select>
+            </label>
+            <label>
+                <span>Sort</span>
+                <select name="sort">
+                    <option value="recommended" {% if filters.sort == 'recommended' %}selected{% endif %}>Fair ranking</option>
+                    <option value="price_low" {% if filters.sort == 'price_low' %}selected{% endif %}>Price low to high</option>
+                    <option value="price_high" {% if filters.sort == 'price_high' %}selected{% endif %}>Price high to low</option>
+                    <option value="rating" {% if filters.sort == 'rating' %}selected{% endif %}>Top rated</option>
+                </select>
+            </label>
+            <button class="button primary" type="submit">Apply</button>
+        </form>
+    </section>
+    <section class="product-grid">
+        {% for product in products %}
+        <article class="product-card">
+            <a class="product-visual" href="{{ url_for('product_detail', product_id=product.product_id) }}">
+                <img src="{{ product.display_image }}" alt="{{ product.product_name }}" loading="lazy" onerror="this.onerror=null;this.src='{{ url_for('product_image', product_id=product.product_id) }}';">
+                <span class="brand-chip">{{ product.brand_badge }}</span>
+                {% if product.discounted %}
+                <span class="discount-chip">{{ product.discount_percent }}% off</span>
+                {% endif %}
+            </a>
+            <div class="product-copy">
+                <div class="card-topline">
+                    <p class="rank-chip">Fair Rank #{{ product.fair_rank }}</p>
+                    <p class="score-chip">Score {{ product.score_display }}</p>
+                </div>
+                <h2><a href="{{ url_for('product_detail', product_id=product.product_id) }}">{{ product.product_name }}</a></h2>
+                <p class="product-description">{{ product.description }}</p>
+                <p class="review-line">{{ product.review_text }}</p>
+                <div class="price-row">
+                    <strong>Rs. {{ product.price_display }}</strong>
+                    {% if product.discounted %}
+                    <span class="strikethrough">Rs. {{ product.original_price_display }}</span>
+                    {% endif %}
+                </div>
+                <div class="meta-row">
+                    <span>{{ product.rating_display }} rating</span>
+                    <span>{{ product.review_count_display }} reviews</span>
+                </div>
+                <div class="meta-row">
+                    <span>{{ product.fabric }}</span>
+                    <span>{{ product.fit }} fit</span>
+                    <span>{{ product.color }}</span>
+                </div>
+                <div class="stock-row {{ product.stock_class }}">
+                    <span>{{ product.stock_status }}</span>
+                    <span>{{ product.stock_qty }} units left</span>
+                </div>
+                <div class="card-actions">
+                    <form method="post" action="{{ url_for('add_to_cart', product_id=product.product_id) }}">
+                        <button class="button primary small" type="submit">Add to cart</button>
+                    </form>
+                    <form method="post" action="{{ url_for('toggle_favorite', product_id=product.product_id) }}">
+                        <button class="button ghost small" type="submit">{% if product.is_favorite %}Saved{% else %}Favourite{% endif %}</button>
+                    </form>
+                    <button class="button ghost small share-button" type="button" data-share-url="{{ request.url_root.rstrip('/') }}{{ product.share_path }}">Share</button>
+                </div>
+            </div>
+        </article>
+        {% else %}
+        <div class="empty-state">
+            <h2>No products matched your filters.</h2>
+            <p>Try clearing a filter or using a broader search term.</p>
+        </div>
+        {% endfor %}
+    </section>
+</main>
+{% endblock %}

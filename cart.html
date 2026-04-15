@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Mr | Cart{% endblock %}
+{% block content %}
+<main class="shell page-stack">
+    <section class="section-intro">
+        <p class="eyebrow">Cart</p>
+        <h1>Review your selected products</h1>
+        <p>Update quantities, remove items, and continue to payment when ready.</p>
+    </section>
+
+    <section class="cart-layout">
+        <div class="cart-items">
+            {% for item in items %}
+            <article class="cart-card">
+                <img src="{{ item.display_image }}" alt="{{ item.product_name }}" onerror="this.onerror=null;this.src='{{ url_for('product_image', product_id=item.product_id) }}';">
+                <div class="cart-copy">
+                    <h2>{{ item.product_name }}</h2>
+                    <p>{{ item.stock_status }} | {{ item.stock_qty }} available</p>
+                    <p>{{ item.review_text }}</p>
+                    <div class="price-row">
+                        <strong>Rs. {{ item.price_display }}</strong>
+                        <span>Line total: Rs. {{ item.line_total_display }}</span>
+                    </div>
+                    <div class="cart-actions">
+                        <form method="post" action="{{ url_for('update_cart', product_id=item.product_id) }}" class="inline-form">
+                            <label>
+                                <span>Qty</span>
+                                <input type="number" name="quantity" min="1" max="{{ item.stock_qty }}" value="{{ item.quantity }}">
+                            </label>
+                            <button class="button ghost small" type="submit">Update</button>
+                        </form>
+                        <form method="post" action="{{ url_for('remove_from_cart', product_id=item.product_id) }}">
+                            <button class="button ghost small" type="submit">Remove</button>
+                        </form>
+                    </div>
+                </div>
+            </article>
+            {% else %}
+            <div class="empty-state">
+                <h2>Your cart is empty.</h2>
+                <p>Add products from the homepage to start an order.</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <aside class="summary-card">
+            <h2>Order summary</h2>
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <strong>Rs. {{ totals.subtotal_display }}</strong>
+            </div>
+            <div class="summary-row">
+                <span>Savings</span>
+                <strong>Rs. {{ totals.savings_display }}</strong>
+            </div>
+            <div class="summary-row">
+                <span>Shipping</span>
+                <strong>{{ totals.shipping_display }}</strong>
+            </div>
+            <div class="summary-row total">
+                <span>Total</span>
+                <strong>Rs. {{ totals.total_display }}</strong>
+            </div>
+            <a class="button primary wide" href="{{ url_for('checkout') }}">Proceed to payment</a>
+        </aside>
+    </section>
+</main>
+{% endblock %}

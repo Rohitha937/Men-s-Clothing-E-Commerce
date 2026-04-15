@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Mr | Favourites{% endblock %}
+{% block content %}
+<main class="shell page-stack">
+    <section class="section-intro">
+        <p class="eyebrow">Saved picks</p>
+        <h1>Your favourite products</h1>
+        <p>Keep the shortlist here while you compare styles, prices, and stock.</p>
+    </section>
+
+    <section class="product-grid">
+        {% for product in products %}
+        <article class="product-card compact">
+            <a class="product-visual" href="{{ url_for('product_detail', product_id=product.product_id) }}">
+                <img src="{{ product.display_image }}" alt="{{ product.product_name }}" loading="lazy" onerror="this.onerror=null;this.src='{{ url_for('product_image', product_id=product.product_id) }}';">
+            </a>
+            <div class="product-copy">
+                <h2><a href="{{ url_for('product_detail', product_id=product.product_id) }}">{{ product.product_name }}</a></h2>
+                <p class="product-description">{{ product.description }}</p>
+                <div class="price-row">
+                    <strong>Rs. {{ product.price_display }}</strong>
+                    <span class="rank-chip">Fair Rank #{{ product.fair_rank }}</span>
+                </div>
+                <div class="card-actions">
+                    <form method="post" action="{{ url_for('add_to_cart', product_id=product.product_id) }}">
+                        <button class="button primary small" type="submit">Add to cart</button>
+                    </form>
+                    <form method="post" action="{{ url_for('toggle_favorite', product_id=product.product_id) }}">
+                        <button class="button ghost small" type="submit">Remove</button>
+                    </form>
+                </div>
+            </div>
+        </article>
+        {% else %}
+        <div class="empty-state">
+            <h2>No favourites yet.</h2>
+            <p>Save products from the homepage to keep them here.</p>
+        </div>
+        {% endfor %}
+    </section>
+</main>
+{% endblock %}

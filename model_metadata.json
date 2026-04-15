@@ -1,0 +1,44 @@
+{
+    "best_ml_model": "Random Forest",
+    "best_dl_model": "FNN Simple",
+    "feature_columns": [
+        "brand_type",
+        "category",
+        "price",
+        "rating",
+        "review_count",
+        "description_length",
+        "keyword_score",
+        "image_quality_score",
+        "seller_type",
+        "popularity_score",
+        "content_score",
+        "brand_name",
+        "price_per_rating",
+        "review_log",
+        "description_keyword_interaction",
+        "popularity_content_interaction",
+        "is_local_brand"
+    ],
+    "categorical_columns": [
+        "brand_type",
+        "category",
+        "seller_type",
+        "brand_name"
+    ],
+    "numerical_columns": [
+        "price",
+        "rating",
+        "review_count",
+        "description_length",
+        "keyword_score",
+        "image_quality_score",
+        "popularity_score",
+        "content_score",
+        "price_per_rating",
+        "review_log",
+        "description_keyword_interaction",
+        "popularity_content_interaction",
+        "is_local_brand"
+    ]
+}
